@@ -44,19 +44,28 @@
 
 <HR>
 
-<AUDIO ID="FUNDOMUSICAL" LOOP>
-<SOURCE SRC="./AMAURY.MP3" TYPE="audio/mpeg">
-</AUDIO>
+<AUDIO ID="FUNDOMUSICAL" LOOP PRELOAD="AUTO">
+    <SOURCE SRC="./AMAURY.MP3" TYPE="audio/mpeg">
+    <SOURCE SRC="./AMAURY.mp3" TYPE="audio/mpeg">
+  </AUDIO>
 
-<SCRIPT>
-var audio = document.getElementById('FUNDOMUSICAL');
-audio.volume = 0.2; 
+  <SCRIPT>
+    var audio = document.getElementById('FUNDOMUSICAL');
+    if (audio) {
+      audio.volume = 0.5;
 
-document.addEventListener('click', function() {
-audio.play();
-}, { once: true });
-</SCRIPT>
+      function ativarAudio() {
+        audio.play().then(function() {
+          console.log("Áudio tocando!");
+        }).catch(function(err) {
+          console.log("Aguardando clique para tocar...", err);
+        });
+      }
 
+      document.addEventListener('click', ativarAudio, { once: true });
+      document.addEventListener('touchstart', ativarAudio, { once: true });
+    }
+  </SCRIPT>
 </BODY>
 
 </HTML>
